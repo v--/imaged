@@ -123,7 +123,7 @@ class JpegDecoder : Decoder
 
                 processHeader();
                 segment.headerProcessed = true;
-                segment.buffer.clear;
+                segment.buffer.destroy;
                 return;
             }
         }
@@ -248,7 +248,7 @@ private:
     ubyte[][int] quantTable;
 
     // Huffman tables are stored in a hash map
-    ubyte[16] nCodes; // Number of codes of each bit length (cleared after each table is defined)
+    ubyte[16] nCodes; // Number of codes of each bit length .destroyed after each table is defined)
     struct hashKey
     {
         ubyte index;    // Table index
@@ -488,7 +488,7 @@ private:
         // Put the new bite into the buffer
         scState.buffer = scState.buffer << 8 | bite ;
         scState.bufferLength += 8;
-        segment.buffer.clear;
+        segment.buffer.destroy;
 
         while (scState.bufferLength >= scState.needBits)
         {
@@ -524,7 +524,7 @@ private:
                                                 scState.bufferLength,
                                                 scState.needBits);
 
-                // Clear these bits from the buffer, set flag back to 'comparing'
+                //.destroy these bits from the buffer, set flag back to 'comparing'
                 scState.bufferLength -= scState.needBits;
                 scState.comparing = true;
 
@@ -731,7 +731,7 @@ private:
                 } // cols
             } // rows
 
-            data.clear;
+            data.destroy;
             data = buffer;
         } // with components[cmpIdx]
     }
@@ -783,7 +783,7 @@ private:
                 } // cols
             } // rows
 
-            data.clear;
+            data.destroy;
             data = buffer;
         } // with components[cmpIdx]
     } // bilinearResample
@@ -839,11 +839,11 @@ private:
         */
         image.resize(x, y, Image.ResizeAlgo.CROP);
 
-        // Clear some fields
+        //.destroy some fields
         scState = ScanState();
-        quantTable.clear;
-        huffmanTable.clear;
-        components.clear;
+        quantTable.destroy;
+        huffmanTable.destroy;
+        components.destroy;
 
     } // eoiAction
 

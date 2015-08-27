@@ -63,7 +63,7 @@ class PngDecoder : Decoder
             if (segment.buffer[0..8] == [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A])
             {
                 // File has correct header
-                segment.buffer.clear;
+                segment.buffer.destroy;
                 m_pendingChunk = true;
                 m_haveHeader = true;
             }
@@ -580,7 +580,7 @@ private:
                 auto tmp = scanLine1;
                 scanLine1 = scanLine2;
                 scanLine2 = scanLine1;
-                scanLine2.clear;
+                scanLine2.destroy;
 
                 if (m_interlace == 1)
                 {
@@ -854,7 +854,7 @@ class PngEncoder : Encoder
             auto tmp = scanLine1;
             scanLine1 = scanLine2;
             scanLine2 = scanLine1;
-            scanLine2.clear;
+            scanLine2.destroy;
         }
 
         idat.data = cast(ubyte[]) compress(cast(void[])imageData);

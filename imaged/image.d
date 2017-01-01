@@ -14,7 +14,7 @@ import
     std.stdio,
     std.conv,
     std.path,
-    std.stream;
+    undead.stream;
 
 import
     imaged.jpeg,

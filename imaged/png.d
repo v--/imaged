@@ -15,7 +15,7 @@ import
     std.algorithm,
     std.conv,
     std.zlib,
-    std.stream;
+    undead.stream;
 
 import
     imaged.image;
@@ -277,7 +277,7 @@ private:
             {
                 if (m_logging)
                 {
-                    writefln("PNG\n Width: %s\nHeight: %s\nBitDepth: %s\nColorType: %s\n"
+                    writefln("PNG\n Width: %s\nHeight: %s\nBitDepth: %s\nColorType: %s\n" ~ 
                              "Compression: %s\nFilter: %s\nInterlacing: %s\nStride: %s",
                              m_width, m_height, m_bitDepth, m_colorType,
                              m_compression, m_filter, m_interlace, m_stride);
